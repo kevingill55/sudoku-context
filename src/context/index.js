@@ -29,7 +29,7 @@ const BoardProvider = ({ children, initialBoard }) => {
     ...state,
   };
   useEffect(() => {
-    localStorage.setItem(KEYS.indices, JSON.stringify(context.indices));
+    localStorage.setItem(KEYS.INDICES, JSON.stringify(context.indices));
   }, []);
   return (
     <BoardContext.Provider value={context}>

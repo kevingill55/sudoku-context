@@ -35,6 +35,6 @@ export const getSolution = async (board) => {
   formData.append('board', formattedBoard);
   const { data: { solution } } = await axios.post(`${BASE_API}/solve`, formData);
   const reducedBoard = reduceBoard(solution);
-  localStorage.setItem(KEYS.solution, JSON.stringify(reducedBoard));
+  localStorage.setItem(KEYS.SOLUTION, JSON.stringify(reducedBoard));
   return reducedBoard;
 };
