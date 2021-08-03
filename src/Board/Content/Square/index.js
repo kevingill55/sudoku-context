@@ -40,7 +40,7 @@ const Square = ({ index }) => {
       <input
         type='text'
         id={`square-${index}`}
-        onKeyDown={event => console.log(event.key) || onBoardUpdate(event.key)}
+        onKeyDown={event => onBoardUpdate(event.key)}
         onChange={() => {}}
         value={board[index] || ''}
         style={{
