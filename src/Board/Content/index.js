@@ -1,18 +1,21 @@
 // © Copyright 2021 KMG: Sudoku
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from 'grommet';
+
+import React, { useContext } from 'react';
+import { Box, ResponsiveContext } from 'grommet';
 import { v4 as uuidv4 } from 'uuid';
 import Title from './Title';
 import Square from './Square';
+import { INDEX_BORDER_MAP } from './Square/constants';
 
-const Main = ({ initialBoard }) => {
+const Content = () => {
+  const size = useContext(ResponsiveContext);
+  const isSmall = size === 'small';
   return (
     <Box
       align='center'
       justify='center'
       gap='3vw'
-      margin={{ vertical: '7vh' }}
+      margin={isSmall ? { vertical: '2vh' } : { vertical: '7vh' }}
       direction='row'
       wrap={true}
     >
@@ -25,7 +28,7 @@ const Main = ({ initialBoard }) => {
         style={{ minWidth: '546px' }}
         alignSelf='center'
       >
-        {initialBoard.map((_, index) => (
+        {Object.keys(INDEX_BORDER_MAP).map((_, index) => (
           <Square
             key={uuidv4()}
             index={index}
@@ -36,8 +39,4 @@ const Main = ({ initialBoard }) => {
   );
 };
 
-Main.propTypes = {
-  initialBoard: PropTypes.array.isRequired,
-};
-
-export default Main;
+export default Content;

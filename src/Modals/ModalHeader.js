@@ -1,4 +1,5 @@
 // © Copyright 2021 KMG: Sudoku
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, Button } from 'grommet';
@@ -17,11 +18,12 @@ const ModalHeader = ({ title, onClick }) => {
       <Box width='40px' />
       <Box
         alignSelf='center'
-        fill
+        fill={true}
       >
         <Text
           size='large'
           weight={300}
+          color='black'
           textAlign='center'
         >
           {title}

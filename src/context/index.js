@@ -1,10 +1,12 @@
 // © Copyright 2021 KMG: Sudoku
-import React, { createContext, useReducer, useContext } from 'react';
+
+import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getActions } from './actions';
 import reducer from './reducer';
 import { getInitialBoardIndices } from '../utils';
 import { FinishModal, NewGameModal } from '../Modals';
+import { KEYS } from '../constants';
 
 const BoardContext = createContext();
 
@@ -13,8 +15,10 @@ const BoardProvider = ({ children, initialBoard }) => {
     selected: null,
     newGame: false,
     finish: false,
+    checkBoard: false,
     board: [...initialBoard],
-    boardDifficulty: 'medium',
+    checkedIndices: [],
+    boardDifficulty: 'Easy',
     boardCount: getInitialBoardIndices([...initialBoard]).length,
     indices: getInitialBoardIndices([...initialBoard]),
     initialBoard: [...initialBoard],
@@ -24,6 +28,9 @@ const BoardProvider = ({ children, initialBoard }) => {
     ...actions,
     ...state,
   };
+  useEffect(() => {
+    localStorage.setItem(KEYS.indices, JSON.stringify(context.indices));
+  }, []);
   return (
     <BoardContext.Provider value={context}>
       {children}

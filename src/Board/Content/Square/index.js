@@ -1,21 +1,26 @@
 // © Copyright 2021 KMG: Sudoku
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
-import { useBoardContext } from '../../context';
-import { INDEX_BORDER_MAP } from '../../constants';
-import { getBackgroundColor, onBoardUpdate } from '../utils';
+import { INDEX_BORDER_MAP } from './constants';
+import { handleBoardUpdate } from './handlers';
+import { getBackgroundColor, getFontColor, isCurrent } from './utils';
+import { useBoardContext } from '../../../context';
 
 const Square = ({ index }) => {
   const {
     board,
-    updateBoard,
-    updateSelected,
     indices,
     selected,
+    updateBoard,
+    updateSelected,
+    checkedIndices,
+    checkBoard,
   } = useBoardContext();
+  const onBoardUpdate = handleBoardUpdate({ board, indices, updateBoard, updateSelected, index: selected });
   const borderValues = INDEX_BORDER_MAP[index].map(side => ({ color: 'black', side, size: '2px' }));
-  const isSelected = index === selected;
+  const current = isCurrent(index, selected);
   return (
     <Box
       width='60px'
@@ -26,22 +31,16 @@ const Square = ({ index }) => {
         { side: 'all', color: 'light-4' },
         ...borderValues,
       ]}
-      background={getBackgroundColor(isSelected, index, indices)}
-      hoverIndicator={isSelected ? { color: 'app' } : { color: 'light-2' }}
-      onClick={() => console.log('yo', index) || updateSelected(index)}
+      background={getBackgroundColor({ current, index, indices })}
+      hoverIndicator={current ? { color: 'app' } : { color: 'light-2' }}
+      onClick={() => updateSelected(index)}
       focusIndicator={false}
-      style={{ fontSize: '48px', color: 'black' }}
+      style={{ fontSize: '48px', color: getFontColor({ checkBoard, checkedIndices, indices, index }) }}
     >
       <input
         type='text'
-        onKeyDown={event => console.log(event.key) || onBoardUpdate({
-          board,
-          index: selected,
-          value: event.key,
-          indices,
-          updateBoard,
-          updateSelected,
-        })}
+        id={`square-${index}`}
+        onKeyDown={event => console.log(event.key) || onBoardUpdate(event.key)}
         onChange={() => {}}
         value={board[index] || ''}
         style={{

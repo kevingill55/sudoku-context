@@ -7,11 +7,11 @@ const ModalButton = ({ label, onClick }) => (
   <Box 
     justify='center'
     width='small'
-    border
+    border={{ color: 'black' }}
   >
     <Button
-      color='accent-4'
-      primary
+      color='app'
+      primary={true}
       label={label}
       onClick={onClick}
       style={{ color: 'black', borderRadius: '0' }}

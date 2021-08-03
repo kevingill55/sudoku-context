@@ -14,9 +14,9 @@ const Loading = () => {
       <Spinner
         size='medium'
         style={{
-          borderLeft: '3px solid black',
-          borderRight: '3px solid black',
-          borderTop: '3px solid black',
+          borderLeft: '3px solid #E7BEFF',
+          borderRight: '3px solid #E7BEFF',
+          borderTop: '3px solid #E7BEFF',
           borderBottom: '3px solid transparent',
         }}
       />
