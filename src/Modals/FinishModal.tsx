@@ -7,10 +7,10 @@ import { onYes, onNo, solvePuzzle } from "./utils";
 
 const FinishModal = () => {
   const [success, setSuccess] = useState(false);
-  const { board, toggleFinish, toggleNewGame } = useBoardContext();
+  const { board, solution, toggleFinish, toggleNewGame } = useBoardContext();
   useEffect(() => {
-    solvePuzzle({ setSuccess, board });
-  }, [board]);
+    solvePuzzle({ setSuccess, solution, board });
+  }, [board, solution]);
   return (
     <Layer>
       <Box width="medium" align="center" pad={{ bottom: "medium" }} gap="small">

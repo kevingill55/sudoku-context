@@ -14,9 +14,9 @@ const TitleButton = ({
     flex={false}
     align="center"
     border={{ color: "black" }}
-    pad="small"
+    pad={"small"}
   >
-    <Text size="small" color="black">
+    <Text size={"small"} color="black">
       {label}
     </Text>
   </Box>

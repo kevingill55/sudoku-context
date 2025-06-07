@@ -1,4 +1,3 @@
-// © Copyright 2021 KMG: Sudoku
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Grommet } from "grommet";

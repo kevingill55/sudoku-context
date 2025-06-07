@@ -39,6 +39,7 @@ export type BoardState = {
   selected: number | null;
   checkedIndices: number[];
   board: number[];
+  solution: number[];
   initialBoard: number[];
   indices: number[];
   boardCount: number;

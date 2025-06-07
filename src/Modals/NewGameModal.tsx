@@ -1,7 +1,6 @@
 // © Copyright 2021 KMG: Sudoku
 
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
 import { Box, Layer } from "grommet";
 import ModalButton from "./ModalButton";
 import ModalHeader from "./ModalHeader";
@@ -12,9 +11,8 @@ import { useBoardContext } from "../context";
 
 const NewGameModal = () => {
   const [loading, setLoading] = useState(false);
-  const queryClient = useQueryClient();
   const { toggleNewGame, resetContext } = useBoardContext();
-  const newGame = onNewGame({ queryClient, resetContext, setLoading });
+  const newGame = onNewGame({ resetContext, setLoading });
   return (
     <Layer>
       <Box

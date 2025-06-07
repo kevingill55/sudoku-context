@@ -1,9 +1,7 @@
-// © Copyright 2021 KMG: Sudoku
-
 import React, { useContext } from "react";
 import { Box, Text, Heading, ResponsiveContext } from "grommet";
 import TitleButton from "./TitleButton";
-import { onReset, onCheck, onSolve } from "./utils";
+import { onReset, onCheck } from "./utils";
 import { useBoardContext } from "../../../context";
 
 const Title = () => {
@@ -18,26 +16,34 @@ const Title = () => {
     updateCheckedIndices,
     initialBoard,
     indices,
+    solution,
     board,
   } = useBoardContext();
   return (
     <Box
       align={isSmall ? "start" : "center"}
-      style={{ minWidth: "200px" }}
-      gap="large"
+      style={{ minWidth: "150px" }}
+      gap={isSmall ? "medium" : "large"}
       pad={isSmall ? { vertical: "medium" } : "none"}
       direction={isSmall ? "row" : "column"}
     >
       <Box pad={{ horizontal: "small" }}>
         <Heading
           color="black"
-          margin={isSmall ? { top: "none", bottom: "small" } : "none"}
-          size="36px"
+          margin={isSmall ? { top: "none", bottom: "xxsmall" } : "none"}
+          size={isSmall ? "24px" : "36px"}
         >
           Sudoku
         </Heading>
-        <Text size="small" textAlign="center" color="black">
-          {`Difficulty: ${boardDifficulty}`}
+        <Text
+          size={isSmall ? "13px" : "small"}
+          textAlign="center"
+          color="black"
+        >
+          {`Difficulty: ${
+            boardDifficulty.charAt(0).toUpperCase() +
+            boardDifficulty.substring(1)
+          }`}
         </Text>
         <Text alignSelf="center" size="xsmall" weight={300}>
           {new Date().toDateString()}
@@ -45,15 +51,26 @@ const Title = () => {
       </Box>
       <Box
         width={!isSmall ? "75%" : "none"}
-        gap="small"
+        gap={isSmall ? "xsmall" : "small"}
         alignSelf="center"
         direction={isSmall ? "row" : "column"}
       >
-        <TitleButton label="Solve" onClick={() => onSolve({ solveBoard })} />
+        <TitleButton
+          label="Solve"
+          onClick={() => {
+            solveBoard(board);
+          }}
+        />
         <TitleButton
           label="Check"
           onClick={() =>
-            onCheck({ board, indices, updateCheckedIndices, toggleCheckBoard })
+            onCheck({
+              board,
+              solution,
+              indices,
+              updateCheckedIndices,
+              toggleCheckBoard,
+            })
           }
         />
         <TitleButton label="New Puzzle" onClick={() => toggleNewGame(true)} />

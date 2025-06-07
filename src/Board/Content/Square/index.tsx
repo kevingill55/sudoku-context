@@ -1,11 +1,14 @@
-import React from "react";
-import { Box } from "grommet";
+import React, { useContext } from "react";
+import { Box, ResponsiveContext } from "grommet";
 import { INDEX_BORDER_MAP } from "./constants";
 import { handleBoardUpdate } from "./handlers";
 import { getBackgroundColor, getFontColor, isCurrent } from "./utils";
 import { useBoardContext } from "../../../context";
 
 const Square = ({ index }: { index: number }) => {
+  const size = useContext(ResponsiveContext);
+  const isSmall = size === "small";
+
   const {
     board,
     indices,
@@ -34,8 +37,8 @@ const Square = ({ index }: { index: number }) => {
 
   return (
     <Box
-      width="60px"
-      height="60px"
+      width={isSmall ? "40px " : "60px"}
+      height={isSmall ? "40px " : "60px"}
       align="center"
       justify="center"
       border={[{ side: "all", color: "light-4" }, ...borderValues]}
@@ -53,6 +56,7 @@ const Square = ({ index }: { index: number }) => {
         id={`square-${index}`}
         onKeyDown={(event) => onBoardUpdate(event.key)}
         onChange={() => {}}
+        autoComplete="off"
         value={board[index] || ""}
         style={{
           border: "none",

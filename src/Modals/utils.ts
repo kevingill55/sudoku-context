@@ -1,5 +1,4 @@
 import { getBoard, getInitialBoardIndices } from "../utils";
-import { KEYS } from "../constants";
 import { DIFFICULTY } from "../types";
 
 export const capitalize = (str: string | DIFFICULTY) => {
@@ -26,11 +25,12 @@ export const onYes = ({
 export const solvePuzzle = ({
   setSuccess,
   board,
+  solution,
 }: {
   board: number[];
+  solution: number[];
   setSuccess: (x: boolean) => void;
 }) => {
-  const solution = JSON.parse(localStorage.getItem(KEYS.SOLUTION) || "");
   return JSON.stringify(board) === JSON.stringify(solution)
     ? setSuccess(true)
     : setSuccess(false);
@@ -38,11 +38,9 @@ export const solvePuzzle = ({
 
 export const onNewGame =
   ({
-    queryClient,
     resetContext,
     setLoading,
   }: {
-    queryClient: any;
     setLoading: (loading: boolean) => void;
     resetContext: (
       board: number[],
@@ -51,19 +49,11 @@ export const onNewGame =
     ) => void;
   }) =>
   async (difficulty: DIFFICULTY) => {
-    localStorage.clear();
-
     setLoading(true);
 
-    const formattedBoard = await getBoard(difficulty);
-    queryClient.setQueryData(KEYS.BOARD, formattedBoard);
-
-    const indices = getInitialBoardIndices(formattedBoard);
-    localStorage.setItem(KEYS.INDICES, JSON.stringify(indices));
-    localStorage.setItem(KEYS.BOARD, JSON.stringify(formattedBoard));
-
-    resetContext(formattedBoard, indices, difficulty);
+    const { board } = await getBoard(difficulty);
+    const indices = getInitialBoardIndices(board);
+    resetContext(board, indices, difficulty);
 
     // const formattedSolution = await getSolution(formattedBoard);
-    // queryClient.setQueryData(KEYS.SOLUTION, formattedSolution);
   };

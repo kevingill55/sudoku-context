@@ -3,14 +3,12 @@ import React, {
   createContext,
   useReducer,
   useContext,
-  useEffect,
 } from "react";
 import { getActions } from "./actions";
 import { reducer } from "./reducer";
 import { getInitialBoardIndices } from "../utils";
 import { FinishModal, NewGameModal } from "../Modals";
 import { DIFFICULTY, BoardState, ActionState } from "../types";
-import { KEYS } from "../constants";
 
 export const INITIAL_BOARD_STATE: BoardState = {
   selected: null,
@@ -18,6 +16,7 @@ export const INITIAL_BOARD_STATE: BoardState = {
   finish: false,
   checkBoard: false,
   board: [],
+  solution: [],
   checkedIndices: [],
   boardDifficulty: DIFFICULTY.EASY,
   boardCount: 0,
@@ -47,15 +46,16 @@ const BoardContext = createContext<BoardState & ActionState>({
 });
 
 const BoardProvider = (
-  props: PropsWithChildren<{ initialBoard: number[] }>
+  props: PropsWithChildren<{ initialBoard: number[]; solution: number[] }>
 ) => {
-  const { children, initialBoard } = props;
+  const { children, solution, initialBoard } = props;
   const [state, dispatch] = useReducer(reducer, {
     selected: null,
     newGame: false,
     finish: false,
     checkBoard: false,
     board: [...initialBoard],
+    solution: [...solution],
     checkedIndices: [],
     boardDifficulty: DIFFICULTY.EASY,
     boardCount: getInitialBoardIndices([...initialBoard]).length,
@@ -67,11 +67,6 @@ const BoardProvider = (
     ...actions,
     ...state,
   };
-
-  useEffect(() => {
-    localStorage.setItem(KEYS.INDICES, JSON.stringify(context.indices));
-  }, [context.indices]);
-
   return (
     <BoardContext.Provider value={context}>
       {children}

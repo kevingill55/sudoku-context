@@ -1,7 +1,4 @@
-// © Copyright 2021 KMG: Sudoku
-
 import { ARROW, BOUNDARIES } from "./constants";
-import { KEYS } from "../../../constants";
 
 export const onArrow = ({
   index,
@@ -44,7 +41,6 @@ export const onInput = ({
   const newBoard = [...board];
   newBoard[index] = Number(value);
   const count = newBoard.filter((num) => num > 0).length;
-  localStorage.setItem(KEYS.BOARD, JSON.stringify(newBoard));
   updateBoard(newBoard, count);
 };
 
