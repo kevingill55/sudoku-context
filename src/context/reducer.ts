@@ -1,4 +1,5 @@
 // © Copyright 2021 KMG: Sudoku
+import { BoardAction, BoardState } from "../types";
 import {
   TOGGLE_FINISH,
   TOGGLE_NEW_GAME,
@@ -9,9 +10,9 @@ import {
   UPDATE_SELECTED,
   RESET_BOARD,
   RESET_CONTEXT,
-} from './actions';
+} from "./actions";
 
-export default (state = {}, action) => {
+export const reducer = (state: BoardState, action: BoardAction) => {
   switch (action.type) {
     case RESET_BOARD:
       return {
@@ -22,13 +23,13 @@ export default (state = {}, action) => {
         selected: null,
         checkBoard: false,
       };
-    case RESET_CONTEXT: 
+    case RESET_CONTEXT:
       return {
         ...state,
         selected: null,
         boardDifficulty: action.difficulty,
-        board: action.value,
-        initialBoard: action.value,
+        board: action.board,
+        initialBoard: action.board,
         indices: action.indices,
         checkedIndices: [],
         boardCount: action.indices.length,
@@ -40,7 +41,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         boardCount: 81,
-        board: action.value,
+        board: action.board,
         finish: false,
         checkBoard: false,
         newGame: false,
@@ -49,21 +50,22 @@ export default (state = {}, action) => {
     case UPDATE_BOARD:
       return {
         ...state,
-        board: action.value,
+        board: action.board,
         boardCount: action.count,
         finish: action.count === 81,
         checkBoard: false,
       };
     case UPDATE_CHECKED_INDICES:
-      return { ...state, checkedIndices: action.value };
+      return { ...state, checkedIndices: action.checkedIndices };
     case UPDATE_SELECTED:
-      return { ...state, selected: action.value };
+      console.log("UPDATE_SELECTED", action);
+      return { ...state, selected: action.selected };
     case TOGGLE_FINISH:
-      return { ...state, finish: action.value };
+      return { ...state, finish: action.finish };
     case TOGGLE_NEW_GAME:
-      return { ...state, newGame: action.value };
+      return { ...state, newGame: action.newGame };
     case TOGGLE_CHECK_BOARD:
-      return { ...state, checkBoard: action.value, selected: null };
+      return { ...state, checkBoard: action.checkBoard, selected: null };
     default:
       return state;
   }

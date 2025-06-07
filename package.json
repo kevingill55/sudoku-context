@@ -8,10 +8,11 @@
     "grommet-icons": "^4.6.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-query": "3.19.1",
-    "react-scripts": "4.0.3",
+    "react-router-dom": "^6.27.0",
+    "react-scripts": "5.0.1",
     "styled-components": "^5.3.0",
     "uuid": "^8.3.2"
   },
@@ -41,8 +42,15 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-react": "^7.24.0"
+    "@types/node": "^22.15.30",
+    "@types/prop-types": "^15.7.14",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "typescript": "^5.8.3"
   }
 }
