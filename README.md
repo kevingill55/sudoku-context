@@ -13,7 +13,7 @@ A sudoku puzzle user interface with access to unlimited puzzles. Written in Reac
   5. [Lodash](https://lodash.com/)
   6. [Axios](https://github.com/axios/axios)
 
-This project was executed via:
+This project was built with:
   1. React Hooks
   2. React Context + customized reducers - `useReducer`
   3. `useQuery` and `useQueryClient` for managing network state and data
